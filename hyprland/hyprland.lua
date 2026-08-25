@@ -278,7 +278,7 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind("PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy"))
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\" ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"))
-hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim - | wl-copy"))
+hl.bind(mainMod .. " + SHIFT + PRINT"), hl.dsp.exec_cmd("grim - | wl-copy"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprsunset -t 3500 || pkill hyprsunset"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 
