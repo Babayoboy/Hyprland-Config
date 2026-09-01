@@ -1,0 +1,13 @@
+nmcli dev wifi rescan
+
+chosen_network=$(nmcli -t -f SSID dev wifi | grep -v '^$' | sort -u | fuzzel -d -p "Select Wi-Fi: ")
+
+if [ -n "$chosen_network" ]; then
+    # Get password using fuzzel (password mask)
+    wifi_password=$(fuzzel -d --password -p "Password for $chosen_network: ")
+
+    # Connect
+    nmcli dev wifi connect "$chosen_network" password "$wifi_password" && \
+    notify-send "Wi-Fi" "Connected to $chosen_network" || \
+    notify-send "Wi-Fi" "Failed to connect to $chosen_network"
+fi

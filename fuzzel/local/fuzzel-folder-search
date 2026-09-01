@@ -1,0 +1,5 @@
+FOLDER=$(fd --type d --hidden --exclude .git --exclude .cache . "$HOME" | fuzzel -d -p "Search Folders: ")
+
+if [ -n "$FOLDER" ]; then
+    xdg-open "$FOLDER"
+fi

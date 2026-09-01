@@ -1,0 +1,5 @@
+FILE=$(fd --type f --hidden --exclude .git --exclude .cache . "$HOME" | fuzzel -d -p "Search Files: ")
+
+if [ -n "$FILE" ]; then
+    xdg-open "$FILE"
+fi

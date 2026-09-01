@@ -1,0 +1,15 @@
+mode=$(printf "1. 󰀻 Applications\n2. 󰈔 Files\n3. 󰉋 Folders\n4. 󰤨 Wi-Fi" | fuzzel -d -p "Search: ")
+
+case "$mode" in
+    *"Applications"*)
+        fuzzel
+        ;;
+    *"Files"*)
+        file=$(fd --type f --hidden --exclude .git --exclude .cache . "$HOME" | fuzzel -d -p "Files: ")
+        [ -n "$file" ] && xdg-open "$file"
+        ;;
+    *"Folders"*)
+        folder=$(fd --type d --hidden --exclude .git --exclude .cache . "$HOME" | fuzzel -d -p "Folders: ")
+        [ -n "$folder" ] && xdg-open "$folder"
+        ;;
+esac
