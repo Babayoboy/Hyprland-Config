@@ -1,0 +1,7 @@
+[global]
+    # Set a maximum size for notification icons (in pixels)
+    max_icon_size = 48
+    
+    # Optionally restrict the total notification width/height
+    width = (0, 350)
+    height = 100

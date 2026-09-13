@@ -35,9 +35,9 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal = "konsole"
+local terminal = "kitty"
 local fileManager = "dolphin"
-local menu = "fuzzel"
+local menu = "fuzzel-menu"
 local browser= "flatpak run app.zen_browser.zen"
 
 -------------------
@@ -50,13 +50,11 @@ local browser= "flatpak run app.zen_browser.zen"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function ()
-    hl.exec_cmd(terminal)
     hl.exec_cmd("nm-applet")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
-    hl.exec_cmd(browser)
-    hl.exec_cmd("/usr/lib/polkit-kde-agent-1")
-    hl.exec_cmd("hyprsunset -t 3500")
+    hl.exec_cmd("/usr/lib/polkit-kde-authentication-agent-1")
+    hl.exec_cmd("hyprsunset -t 2800")
     hl.exec_cmd("dunst")
     hl.exec_cmd("hyprctl setcursor catppuccin-frappe-sapphire-cursors 24")
 end)
@@ -278,10 +276,10 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind("PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy"))
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\" ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png"))
-hl.bind(mainMod .. " + SHIFT + PRINT"), hl.dsp.exec_cmd("grim - | wl-copy"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprsunset -t 3500 || pkill hyprsunset"))
+hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim - | wl-copy"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprsunset -t 2800 || pkill hyprsunset"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
-
+-- hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd("hypremoji"))
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
@@ -372,3 +370,34 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+
+hl.window_rule({
+    name  = "float-hypremoji",
+    match = { class = "hypremoji" },
+
+    float = true,
+})
+
+hl.window_rule({
+    name = "float-zen-pip",
+    match = {
+        class = "app.zen_browser.zen",
+        title = "^(Picture-in-Picture)$",
+    },
+    float = true,
+    pin = true,
+    size  = "640 360",
+    move  = "1260 700",
+})
+
+hl.window_rule({
+    name = "KDE Connect",
+    match = {
+        class = "org.kde.kdeconnect.app"
+    },
+
+    float = true,
+})
+
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.config/hypremoji/?.lua"
+require("hypremoji")
