@@ -285,7 +285,7 @@ hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
-
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("hypremoji"))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
@@ -399,5 +399,11 @@ hl.window_rule({
     float = true,
 })
 
-package.path = package.path .. ";" .. os.getenv("HOME") .. "/.config/hypremoji/?.lua"
-require("hypremoji")
+hl.window_rule({
+    name = "HyprEmoji",
+    match = {
+        class = "dev.musagy.hypremoji"
+    },
+
+    float = true,
+})
